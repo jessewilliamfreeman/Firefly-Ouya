@@ -4,27 +4,22 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
+import android.graphics.PointF;
+import tv.ouya.console.api.*;
 
 public class MainActivity extends Activity {
-	GameModel gm;
-	GameLoop gl;
 
+	GameController gameController;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		OuyaController.init(this);
+		Log.d("Controler", "Controler Init");
 		setContentView(R.layout.activity_main);
-		startGame();
+		gameController = (GameController) this.findViewById(R.id.game_controller );
 	}
-	
-    private void startGame(){
-		GameView gameView = (GameView) this.findViewById(R.id.game_view);
-		gm = new GameModel(100,10);
-		gameView.setGameModel(gm);
-		gl = new GameLoop(gm,this);
-		Thread t = new Thread(gl);
-		gm.paused = false;
-		t.start();
-    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,9 +30,23 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public void onStop(){
-		super.onStop();
-		gm.gameOver = true;
+		super.onStop();		
+		gameController.stop();
 	}
+	
+	
+	@Override
+	public boolean onGenericMotionEvent(final MotionEvent event) {
+		//OuyaController.onGenericMotionEvent(event);
+		float LS_X = event.getAxisValue(OuyaController.AXIS_LS_X);
+		float LS_Y = event.getAxisValue(OuyaController.AXIS_LS_Y);
+		//float RS_X = event.getAxisValue(OuyaController.AXIS_RS_X);
+		//float RS_Y = event.getAxisValue(OuyaController.AXIS_RS_Y);
+		gameController.gameView.gm.moveAvatar(new PointF(LS_X * 2, LS_Y * 2));
+		return true;
+		
+	}
+	
 	
 
 }
