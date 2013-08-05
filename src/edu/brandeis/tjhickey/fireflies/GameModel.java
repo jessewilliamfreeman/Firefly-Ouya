@@ -25,10 +25,11 @@ public class GameModel {
 	GameActor avatar;
 	GameActor hole;
 
-	private boolean gameOver = false;
+	public boolean gameOver = false;
 	private boolean paused = true;
 	private int numActors;
 	private int numActive;
+	public  int score;
 
 	private Random rand = new Random();
 
@@ -140,8 +141,9 @@ public class GameModel {
 		}
 
 		// check for gameOver
-		if (numActive == 0)
+		if (score == numActors)
 			gameOver = true;
+
 	}
 
 
@@ -152,8 +154,9 @@ public class GameModel {
 		a.y += dp.y;
 		if (intersects(hole,avatar)){
 	    	
-	    	if(!a.active && a.species == Species.firefly){
+	    	if(!a.active && a.species == Species.firefly && !a.scored){
 	    		a.scored = true;
+	    		score ++;
 	    	}
 	    }
 	}
