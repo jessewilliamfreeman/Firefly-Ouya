@@ -24,6 +24,8 @@ public class GameActor {
 	// species
 	Species species = Species.firefly; 
 	
+	boolean scored = false;
+	
 	private java.util.Random rand = new java.util.Random();
 
 	public GameActor(float x, float y, boolean active) {
@@ -41,6 +43,7 @@ public class GameActor {
 	public GameActor(){
 		this(0,0,true);
 	}
+	
 
 	/**
 	 * actors change their velocity slightly at every step
@@ -56,6 +59,7 @@ public class GameActor {
 		x += vx*speed/tmpSpeed;
 		y += vy*speed/tmpSpeed;
 	}
+	
 	
 	public String toString(){
 		int ix = (int)x;

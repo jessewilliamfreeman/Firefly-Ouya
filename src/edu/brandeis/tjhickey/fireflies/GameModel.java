@@ -23,6 +23,7 @@ public class GameModel {
 
 	List<GameActor> actors;
 	GameActor avatar;
+	GameActor hole;
 
 	private boolean gameOver = false;
 	private boolean paused = true;
@@ -43,6 +44,10 @@ public class GameModel {
 		this.avatar = new GameActor(size / 2, size / 2);
 		avatar.species = Species.avatar;
 		this.avatar.radius = 6;
+		
+		this.hole = new GameActor(size/2,size/2);
+		hole.species = Species.hole;
+		this.hole.radius = 6;
 
 		this.gameOver = false;
 	}
@@ -61,14 +66,11 @@ public class GameModel {
 			this.actors.add(a);
 			a.speed = 1;
 			a.radius = 1;
-			if (numActive > numActors - 3) {
-				a.species = Species.wasp;
-			} else {
-				a.species = Species.firefly;
-				numActive++;
+			a.species = Species.firefly;
+			numActive++;
 			}
 		}
-	}
+	
 
 	public void start() {
 		paused = false;
@@ -148,6 +150,12 @@ public class GameModel {
 		// move the caught fireflies along with the net
 		a.x += dp.x;
 		a.y += dp.y;
+		if (intersects(hole,avatar)){
+	    	
+	    	if(!a.active && a.species == Species.firefly){
+	    		a.scored = true;
+	    	}
+	    }
 	}
 
 	private void updateFreeActor(GameActor a) {
@@ -159,11 +167,17 @@ public class GameModel {
 			if (a.species == Species.firefly) {
 				a.active = false;
 				numActive--;
-			} else if (a.species == Species.wasp) {
-				initActors(); // you lose and have to restart!
-			}
+			} 
+		}
+		if(intersects(a,hole)) {
+			a.vx = (a.x-avatar.x);
+			a.vy = (a.y-avatar.y);
 		}
 	}
+	    
+	
+		
+	
 
 	/*
 	 * if an actor moves off the board, in the x (or y) direction, it is bounced

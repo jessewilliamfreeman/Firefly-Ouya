@@ -105,7 +105,7 @@ public class GameView {
 		drawActors(canvas);
 
 		drawActor(canvas, gm.avatar);
-		
+		drawActor(canvas, gm.hole);
 		canvas.drawText("" + System.nanoTime(), 50, 50, wPaint);
 		
 		surfaceHolder.unlockCanvasAndPost(canvas);
@@ -114,9 +114,9 @@ public class GameView {
 	private void drawActors(Canvas canvas) {
 		try{
 		for (GameActor a : gm.actors) {
-
+			if(!a.scored) {
 				drawActor(canvas, a);
-			
+			}
 		}
 		} catch(Exception e){
 			System.out.println("error in drawActors:"+e);
@@ -136,8 +136,6 @@ public class GameView {
 	private Paint getPaint(GameActor a) {
 		if (a.species == Species.firefly) {
 			return fPaint;
-		} else if (a.species == Species.wasp) {
-			return wPaint;
 		} else {
 			return aPaint;
 		}
