@@ -42,7 +42,8 @@ public class MainActivity extends Activity {
 		float LS_Y = event.getAxisValue(OuyaController.AXIS_LS_Y);
 		//float RS_X = event.getAxisValue(OuyaController.AXIS_RS_X);
 		//float RS_Y = event.getAxisValue(OuyaController.AXIS_RS_Y);
-		double speedMultiplier = 1+(0.9)*Math.log10((gameController.gameView.gm.numActors-gameController.gameView.gm.numActive-gameController.gameView.gm.score+1));
+		//double speedMultiplier = 1+(0.9)*Math.log10((gameController.gameView.gm.numActors-gameController.gameView.gm.numActive-gameController.gameView.gm.score+1));
+		double speedMultiplier = 1+(0.5)*Math.sqrt((gameController.gameView.gm.numActors-gameController.gameView.gm.numActive-gameController.gameView.gm.score+1));
 		gameController.gameView.gm.moveAvatar(new PointF(LS_X * 2/(float)speedMultiplier, LS_Y * 2/(float)speedMultiplier));
 		return true;
 		

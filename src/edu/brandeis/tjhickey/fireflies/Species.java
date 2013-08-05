@@ -1,5 +1,5 @@
 package edu.brandeis.tjhickey.fireflies;
 
-public enum Species {firefly, avatar, hole};
+public enum Species {firefly, avatar, hole, wasp};
 
 

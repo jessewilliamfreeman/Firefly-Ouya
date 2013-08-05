@@ -29,7 +29,7 @@ public class GameModel {
 	private boolean paused = true;
 	public int numActors;
 	public int numActive;
-	public  int score;
+	public int score;
 
 	private Random rand = new Random();
 
@@ -67,7 +67,12 @@ public class GameModel {
 			this.actors.add(a);
 			a.speed = 1;
 			a.radius = 1;
-			a.species = Species.firefly;
+			if (numActive> numActors-5){
+				a.species = Species.wasp;
+			}
+			else {
+				a.species = Species.firefly;
+			}
 			numActive++;
 			}
 		}
@@ -139,6 +144,8 @@ public class GameModel {
 				updateCaughtActor(dp, a);
 			}
 		}
+		
+		
 
 		// check for gameOver
 		if (score == numActors)
@@ -170,7 +177,11 @@ public class GameModel {
 			if (a.species == Species.firefly) {
 				a.active = false;
 				numActive--;
-			} 
+			}
+			
+			if(a.species == Species.wasp){
+				explode();
+			}
 		}
 		if(intersects(a,hole)) {
 			a.vx = (a.x-avatar.x);
@@ -180,7 +191,18 @@ public class GameModel {
 	    
 	
 		
-	
+	public void explode() {
+		for (GameActor a : actors) {
+			if(!a.scored && !a.active && a.species == Species.firefly) {
+			a.active = true;
+			numActive++;
+			float dx=a.x-avatar.x;
+			float dy=a.y-avatar.y;
+			a.vx=dx*3;
+			a.vy=dy*3;
+			}
+		}			
+	}
 
 	/*
 	 * if an actor moves off the board, in the x (or y) direction, it is bounced

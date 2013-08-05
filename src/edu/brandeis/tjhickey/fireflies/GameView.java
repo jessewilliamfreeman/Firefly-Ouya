@@ -107,7 +107,7 @@ public class GameView {
 		drawActor(canvas, gm.avatar);
 		drawActor(canvas, gm.hole);
 		//canvas.drawText("" + System.nanoTime(), 50, 50, wPaint);
-		canvas.drawText("" + gm.score, 50, 50, wPaint);
+		canvas.drawText("Score: " + gm.score, 50, 50, wPaint);
 		if (gm.gameOver){
 			canvas.drawText("You Win!", 200, 200, wPaint);
 		}
@@ -141,7 +141,12 @@ public class GameView {
 	private Paint getPaint(GameActor a) {
 		if (a.species == Species.firefly) {
 			return fPaint;
-		} else {
+		} 
+		if (a.species == Species.wasp) {
+			return wPaint;
+		}
+		
+		else {
 			return aPaint;
 		}
 	}
