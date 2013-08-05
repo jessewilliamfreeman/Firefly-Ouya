@@ -24,11 +24,11 @@ public class GameModel {
 	List<GameActor> actors;
 	GameActor avatar;
 	GameActor hole;
-
+	
 	public boolean gameOver = false;
 	private boolean paused = true;
-	private int numActors;
-	private int numActive;
+	public int numActors;
+	public int numActive;
 	public  int score;
 
 	private Random rand = new Random();
