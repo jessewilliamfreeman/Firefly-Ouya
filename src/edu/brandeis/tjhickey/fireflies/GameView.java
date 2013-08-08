@@ -107,13 +107,9 @@ public class GameView {
 		drawActor(canvas, gm.avatar);
 		drawActor(canvas, gm.hole);
 		//canvas.drawText("" + System.nanoTime(), 50, 50, wPaint);
-		canvas.drawText("Score: " + (gm.score - gm.minusScore), 50, 50, wPaint);
+		canvas.drawText("Score: " + gm.score, 50, 50, wPaint);
 		if (gm.gameOver){
-			if ((gm.score - gm.minusScore) > 0) {
-				canvas.drawText("You Win!", 200, 200, wPaint);
-			} else {
-				canvas.drawText("Sorry, You Lose", 200, 200, wPaint);
-			}
+			canvas.drawText("You Win!", 200, 200, wPaint);
 		}
 		
 		
