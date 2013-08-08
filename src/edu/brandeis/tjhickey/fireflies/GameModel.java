@@ -30,6 +30,7 @@ public class GameModel {
 	public int numActors;
 	public int numActive;
 	public int score;
+	public int minusScore;
 
 	private Random rand = new Random();
 
@@ -180,6 +181,7 @@ public class GameModel {
 			}
 			
 			if(a.species == Species.wasp){
+				minusScore -= 50;
 				explode();
 			}
 		}
